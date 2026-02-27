@@ -1,0 +1,5 @@
+author: "Danielance"
+delete-after: True
+changes:
+  - bugfix: "ablative trenchcoat digi legs sprite is no longer a missing texture coat"
+  - rscadd: "teshari sprites for ablative trenchcoat and hood"
