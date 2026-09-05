@@ -21,8 +21,18 @@
 	speed = 3.5 //dont make this any faster PLEASE
 	gps_name = "L-4 Biohazard Beacon"
 	ai_controller = /datum/ai_controller/basic_controller/thing_boss
-	crusher_loot = /obj/item/crusher_trophy/flesh_glob
+	crusher_loot = list(/obj/item/crusher_trophy/flesh_glob)
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
+
+	achievements = list(
+		/datum/award/achievement/boss/boss_killer,
+		/datum/award/achievement/boss/thething_kill,
+		/datum/award/score/boss_score,
+		/datum/award/score/thething_score,
+	)
+	crusher_achievement_type = /datum/award/achievement/boss/thething_crusher
+	victor_memory_type = /datum/memory/megafauna_slayer
+
 	/// Current phase of the boss fight
 	var/phase = 1
 	/// Time the Thing will be invulnerable between phases
@@ -41,13 +51,7 @@
 
 /mob/living/basic/boss/thing/Initialize(mapload)
 	. = ..()
-	var/static/list/achievements = list(
-		/datum/award/achievement/boss/boss_killer,
-		/datum/award/achievement/boss/thething_kill,
-		/datum/award/score/boss_score,
-		/datum/award/score/thething_score,
-		)
-	AddElement(/datum/element/kill_achievement, achievements, /datum/award/achievement/boss/thething_crusher, /datum/memory/megafauna_slayer)
+
 	AddElement(/datum/element/death_drops, /obj/item/keycard/thing_boss, FALSE)
 
 	var/static/list/innate_actions = list(
@@ -65,8 +69,8 @@
 	if(!maploaded)
 		return
 	spawn_loc = loc
-	RegisterSignal(src, COMSIG_AI_BLACKBOARD_KEY_SET(BB_BASIC_MOB_CURRENT_TARGET), PROC_REF(target_gained))
-	RegisterSignal(src, COMSIG_AI_BLACKBOARD_KEY_CLEARED(BB_BASIC_MOB_CURRENT_TARGET), PROC_REF(target_lost))
+	RegisterSignal(src, COMSIG_AI_BLACKBOARD_KEY_SET(BB_CURRENT_TARGET), PROC_REF(target_gained))
+	RegisterSignal(src, COMSIG_AI_BLACKBOARD_KEY_CLEARED(BB_CURRENT_TARGET), PROC_REF(target_lost))
 	SSqueuelinks.add_to_queue(src, RUIN_QUEUE, 0)
 	return INITIALIZE_HINT_LATELOAD
 
@@ -175,9 +179,9 @@
 /// Immediately set out blackboard target key (if empty) to whoever attacks us; this is primarily because it has a lowered aggro range and a high sight range
 /mob/living/basic/boss/thing/proc/immediate_aggro(datum/source, mob/attacker, flags)
 	SIGNAL_HANDLER
-	if(isnull(ai_controller) || stat || !istype(attacker) || ai_controller.blackboard_key_exists(BB_BASIC_MOB_CURRENT_TARGET))
+	if(isnull(ai_controller) || stat || !istype(attacker) || ai_controller.blackboard_key_exists(BB_CURRENT_TARGET))
 		return
-	ai_controller?.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, attacker)
+	ai_controller?.set_blackboard_key(BB_CURRENT_TARGET, attacker)
 
 /mob/living/basic/boss/thing/vv_edit_var(vname, vval)
 	. = ..()
@@ -299,7 +303,7 @@
 	/// queue id
 	var/queue_id = RUIN_QUEUE
 	/// blackboard key for target
-	var/target_bb_key = BB_BASIC_MOB_CURRENT_TARGET
+	var/target_bb_key = BB_CURRENT_TARGET
 
 /obj/structure/aggro_gate/Initialize(mapload)
 	. = ..()

@@ -1,8 +1,8 @@
 /datum/atom_skin
 	/// Optional, worn_icon to change the atom to when applied
-	var/new_worn_icon
+/* 	var/new_worn_icon */  //already defined upstream in code/datums/components/reskinnable_atom.dm
 	/// The in-hand icon state for held items.
-	var/new_inhand_icon_state
+/* 	var/new_inhand_icon_state */ //already defined upstream in code/datums/components/reskinnable_atom.dm
 	/// The left side in-hand icon state for held items.
 	var/new_left_inhand
 	/// The right side in-hand icon state for held items.
@@ -35,3 +35,12 @@
 
 /datum/component/reskinable_item/proc/has_skin()
 	return current_skin != null
+
+/// Returns the abstract skin type this component was set up with.
+/// Lets the loadout system detect reskin support without every loadout datum declaring it by hand.
+/datum/component/reskinable_item/proc/get_base_reskin_type()
+	return base_reskin_type
+
+/// Returns whether this component permits unlimited reskins.
+/datum/component/reskinable_item/proc/get_infinite_reskin()
+	return infinite_reskin

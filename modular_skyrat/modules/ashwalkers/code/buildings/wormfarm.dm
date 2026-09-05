@@ -109,7 +109,7 @@
 		if(prob(user.mind.get_skill_modifier(/datum/skill/primitive, SKILL_PROBS_MODIFIER)))
 			current_food++
 
-		user.mind.adjust_experience(/datum/skill/primitive, 5)
+		user.mind?.adjust_experience(/datum/skill/primitive, 5)
 		in_use = FALSE
 		return
 
@@ -131,7 +131,7 @@
 			ate_food = TRUE
 			if(prob(user.mind.get_skill_modifier(/datum/skill/primitive, SKILL_PROBS_MODIFIER)))
 				current_food++
-			user.mind.adjust_experience(/datum/skill/primitive, 5)
+			user.mind?.adjust_experience(/datum/skill/primitive, 5)
 
 		if(ate_food)
 			balloon_alert(user, "feeding the worms")
@@ -149,6 +149,8 @@
 	desc = "When you fed your worms, you should have expected this."
 	icon = 'modular_skyrat/modules/ashwalkers/icons/misc_tools.dmi'
 	icon_state = "fertilizer"
-	grind_results = list(/datum/reagent/plantnutriment/eznutriment = 3, /datum/reagent/plantnutriment/left4zednutriment = 3, /datum/reagent/plantnutriment/robustharvestnutriment = 3)
 	singular_name = "fertilizer"
 	merge_type = /obj/item/stack/worm_fertilizer
+
+/obj/item/stack/worm_fertilizer/grind_results()
+	return list(/datum/reagent/plantnutriment/eznutriment = 3, /datum/reagent/plantnutriment/left4zednutriment = 3, /datum/reagent/plantnutriment/robustharvestnutriment = 3)

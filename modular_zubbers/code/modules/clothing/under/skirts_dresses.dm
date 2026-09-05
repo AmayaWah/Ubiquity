@@ -17,6 +17,7 @@
 	greyscale_colors = "#39393f#ffffff#ffffff"
 	greyscale_config = /datum/greyscale_config/miniskirt
 	greyscale_config_worn = /datum/greyscale_config/miniskirt_worn
+	greyscale_config_worn_teshari = /datum/greyscale_config/miniskirt_worn/teshari
 	flags_1 = IS_PLAYER_COLORABLE_1
 	alt_covers_chest = TRUE
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
@@ -48,7 +49,7 @@
 
 /datum/atom_skin/midnight_gown
 	abstract_type = /datum/atom_skin/midnight_gown
-	reset_missing = FALSE
+	greyscale_item_path = /obj/item/clothing/under/dress/bubber/midnight_gown
 
 /datum/atom_skin/midnight_gown/right
 	preview_name = "Right"
@@ -64,7 +65,7 @@
 
 /datum/atom_skin/giant_scarf
 	abstract_type = /datum/atom_skin/giant_scarf
-	reset_missing = FALSE
+	greyscale_item_path = /obj/item/clothing/under/dress/bubber/giant_scarf
 
 /datum/atom_skin/giant_scarf/giant_scarf
 	preview_name = "Plain"
@@ -126,3 +127,8 @@
 /obj/item/clothing/under/dress/bubber/giant_scarf/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/reskinable_item, /datum/atom_skin/giant_scarf, initial_skin = "Plain")
+
+/obj/item/clothing/under/dress/striped
+	greyscale_config_worn = /datum/greyscale_config/striped_dress/worn
+	greyscale_config_worn_digi = /datum/greyscale_config/striped_dress/worn/digi
+	greyscale_config_worn_teshari = /datum/greyscale_config/striped_dress/worn/teshari

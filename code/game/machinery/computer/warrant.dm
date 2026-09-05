@@ -1,6 +1,7 @@
 /obj/machinery/computer/warrant
 	name = "security warrant console"
 	desc = "Used to view outstanding warrants."
+	icon_state = MAP_SWITCH("computer", "/obj/machinery/computer/warrant")
 	icon_screen = "security"
 	icon_keyboard = "security_key"
 	circuit = /obj/item/circuitboard/computer/warrant
@@ -105,7 +106,7 @@
 		return FALSE
 
 	var/amount = params["amount"]
-	if(!amount || !isnum(amount) || amount > warrant.fine || !account.adjust_money(-amount, "Paid fine for [target.name]"))
+	if(!amount || !isnum(amount) || amount <= 0 || amount > warrant.fine || !account.adjust_money(-amount, "Paid fine for [target.name]"))
 		to_chat(user, span_warning("ACCESS DENIED: Invalid amount."))
 		playsound(src, 'sound/machines/terminal/terminal_error.ogg', 100, TRUE)
 		return FALSE

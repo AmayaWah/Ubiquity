@@ -20,6 +20,7 @@
 	var/obj/carried_egg
 
 /datum/emote/penguin
+	abstract_type = /datum/emote/penguin
 	mob_type_allowed_typecache = /mob/living/basic/pet/penguin
 	mob_type_blacklist_typecache = list()
 
@@ -37,10 +38,9 @@
 	AddElement(/datum/element/ai_retaliate)
 	AddElement(/datum/element/ai_flee_while_injured)
 	AddElement(/datum/element/pet_bonus, "honk")
+	AddComponent(/datum/component/profound_fisher)
 	AddElementTrait(TRAIT_WADDLING, INNATE_TRAIT, /datum/element/waddling)
 
-	var/static/list/fishable_objects = typecacheof(list(/turf/open/misc/ice))
-	ai_controller.set_blackboard_key(BB_FISHABLE_LIST, fishable_objects)
 	var/static/list/delicious_food = list(/obj/item/fish)
 	AddElement(/datum/element/basic_eating, heal_amt = 10, food_types = delicious_food)
 	ai_controller.set_blackboard_key(BB_BASIC_FOODS, typecacheof(delicious_food))
@@ -166,11 +166,3 @@
 
 /mob/living/basic/pet/penguin/baby/permanent
 	can_grow_up = FALSE
-
-/mob/living/basic/pet/penguin/emperor/snowdin
-	minimum_survivable_temperature = BODYTEMP_COLD_ICEBOX_SAFE //BUBBER EDIT Original = ICEBOX_MIN_TEMPERATURE
-	gold_core_spawnable = NO_SPAWN
-
-/mob/living/basic/pet/penguin/baby/permanent/snowdin
-	minimum_survivable_temperature = BODYTEMP_COLD_ICEBOX_SAFE //BUBBER EDIT Original = ICEBOX_MIN_TEMPERATURE
-	gold_core_spawnable = NO_SPAWN

@@ -58,7 +58,7 @@
 
 /obj/item/clothing/suit/apron/overalls/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/adjust_fishing_difficulty, -4)
+	AddElement(/datum/element/adjust_fishing_difficulty, -4)
 
 //Captain
 /obj/item/clothing/suit/jacket/capjacket
@@ -194,7 +194,7 @@
 	resistance_flags = NONE
 	species_exception = list(/datum/species/golem)
 
-/obj/item/clothing/suit/hazardvest/worn_overlays(mutable_appearance/standing, isinhands, icon_file)
+/obj/item/clothing/suit/hazardvest/worn_overlays(mutable_appearance/standing, isinhands, icon_file, bodyshape = NONE)
 	. = ..()
 	if(!isinhands)
 		. += emissive_appearance(icon_file, "[icon_state]-emissive", src, alpha = src.alpha, effect_type = EMISSIVE_SPECULAR)
@@ -364,7 +364,7 @@
 
 /obj/item/clothing/suit/apron/surgical/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/adjust_fishing_difficulty, -3) // FISH DOCTOR?!
+	AddElement(/datum/element/adjust_fishing_difficulty, -3) // FISH DOCTOR?!
 
 //Curator
 /obj/item/clothing/suit/jacket/curator
@@ -442,7 +442,7 @@
 	fire = 100
 	acid = 50
 
-/obj/item/clothing/suit/atmos_overalls/worn_overlays(mutable_appearance/standing, isinhands, icon_file)
+/obj/item/clothing/suit/atmos_overalls/worn_overlays(mutable_appearance/standing, isinhands, icon_file, bodyshape = NONE)
 	. = ..()
 	if(!isinhands)
 		. += emissive_appearance(icon_file, "[icon_state]-emissive", src, alpha = src.alpha, effect_type = EMISSIVE_SPECULAR)
